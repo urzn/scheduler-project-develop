@@ -55,6 +55,11 @@ public class ScheduleService {
                 .toList();
     }
 
+    public ScheduleResponseDto findById(Long id){
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        return new ScheduleResponseDto(findSchedule.getId(), findSchedule.getTitle(), findSchedule.getContents());
+    }
     /**
      * 일정 id로 일정을 수정하는 메소드
      * @param id
