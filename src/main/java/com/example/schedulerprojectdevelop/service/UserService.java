@@ -1,6 +1,7 @@
 package com.example.schedulerprojectdevelop.service;
 
 
+import com.example.schedulerprojectdevelop.config.PasswordEncoder;
 import com.example.schedulerprojectdevelop.dto.SignUpResponseDto;
 import com.example.schedulerprojectdevelop.dto.UserResponseDto;
 import com.example.schedulerprojectdevelop.entity.User;
@@ -18,10 +19,13 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public SignUpResponseDto signUp(String username, String password, String email){
 
-        User user = new User(username, password, email);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(username, encodedPassword, email);
 
         User savedUser = userRepository.save(user);
 
@@ -48,11 +52,13 @@ public class UserService {
 
         User findUser = userRepository.findUserByIdOrElseThrow(id);
 
-        if(!findUser.getPassword().equals(oldPassword)){
+        if(!passwordEncoder.matches(oldPassword, findUser.getPassword())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
         }
 
-        findUser.updatePassword(newPassword);
+        String newEncodedPassword = passwordEncoder.encode(newPassword);
+
+        findUser.updatePassword(newEncodedPassword);
 
     }
 
@@ -63,7 +69,7 @@ public class UserService {
     public User login(String email, String password){
         User findUser = userRepository.findUserByEmailOrElseThrow(email);
 
-        if(!findUser.getPassword().equals(password)){
+        if(!passwordEncoder.matches(password, findUser.getPassword())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
         }
 

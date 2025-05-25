@@ -5,6 +5,7 @@ import com.example.schedulerprojectdevelop.dto.UserResponseDto;
 import com.example.schedulerprojectdevelop.dto.SignUpRequestDto;
 import com.example.schedulerprojectdevelop.dto.SignUpResponseDto;
 import com.example.schedulerprojectdevelop.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto){
+    public ResponseEntity<SignUpResponseDto> signUp(@Valid @RequestBody SignUpRequestDto requestDto){
 
         SignUpResponseDto signUpResponseDto =
                 userService.signUp(
@@ -50,6 +51,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> updatePassword(
+            @Valid
             @PathVariable Long id,
             @RequestBody UpdatePasswordRequestDto requestDto
             ){

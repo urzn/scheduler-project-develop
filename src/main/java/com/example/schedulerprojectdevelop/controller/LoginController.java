@@ -8,6 +8,7 @@ import com.example.schedulerprojectdevelop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class LoginController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<MessageResponseDto> login(@RequestBody LoginRequestDto requestDto, HttpServletRequest request){
+    public ResponseEntity<MessageResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request){
 
         User user = userService.login(requestDto.getEmail(), requestDto.getPassword());
 
