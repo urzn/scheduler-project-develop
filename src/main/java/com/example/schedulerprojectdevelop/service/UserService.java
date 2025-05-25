@@ -60,6 +60,17 @@ public class UserService {
         userRepository.delete(userRepository.findUserByIdOrElseThrow(id));
     }
 
+    public User login(String email, String password){
+        User findUser = userRepository.findUserByEmailOrElseThrow(email);
+
+        if(!findUser.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        return findUser;
+
+    }
+
 
 
 }
