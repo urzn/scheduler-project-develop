@@ -1,6 +1,6 @@
 # scheduler-project-develop
 
-
+##API 명세서
 | 기능                | Method | URL                                             | request                                                                                                                    | response                                                                                                                                                                                        | 상태코드        |
 |-----------------------|--------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | 유저 등록             | POST   | /users/signup                                      | {"username" : "bat", "password" : "12341234", "email" : "bat123@gmail.com"} | {"id":2,"username":"bat","email":"bat123@gmail.com"} | 201 CREATED |
@@ -21,3 +21,8 @@
 | 댓글 전체 조회 | GET    | /comments | - | {"content":[{"contents":"hellyeyeye112233","id":17,"scheduleId":1},{"contents":"hellyeyeye1122","id":16,"scheduleId":1},{"contents":"hellyeyeye11","id":15,"scheduleId":1},{"contents":"hellyeyeye","id":14,"scheduleId":1},{"contents":"hellyeyey123456789012e","id":13,"scheduleId":1},{"contents":"hellyeyey12345678901e","id":12,"scheduleId":1},{"contents":"hellyeyey1234567890e","id":11,"scheduleId":1},{"contents":"hellyeyey123456789e","id":10,"scheduleId":1},{"contents":"hellyeyey12345678e","id":9,"scheduleId":1},{"contents":"hellyeyey1234567e","id":8,"scheduleId":1}],"pageable":{"pageNumber":0,"pageSize":10,"sort":{"empty":false,"sorted":true,"unsorted":false},"offset":0,"paged":true,"unpaged":false},"last":false,"totalPages":2,"totalElements":17,"first":true,"numberOfElements":10,"size":10,"number":0,"sort":{"empty":false,"sorted":true,"unsorted":false},"empty":false} | 200 OK |
 | 댓글 id로 수정 | PATCH  | /comments/{id} | id (Long) - 일정 ID, {"username" : "bat","contents" : "hellyeyeye"} | {"username" : "bat","id":5,"contents" : "hellyeyeye"} | 200 OK      |
 | 댓글 id로 삭제 | DELETE | /comments/{id} | id (Long) - 일정 ID | {"message":"댓글이이 삭제되었습니다."}  | 200 OK |
+
+
+##  ERD 
+
+![ERD](./erd.png)
