@@ -6,6 +6,8 @@ import com.example.schedulerprojectdevelop.entity.User;
 import com.example.schedulerprojectdevelop.repository.ScheduleRepository;
 import com.example.schedulerprojectdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,11 +50,9 @@ public class ScheduleService {
      * Dto로 변환 후 리스트 형태로 반환
      * @return
      */
-    public List<ScheduleResponseDto> findAll(){
-        return scheduleRepository.findAll()
-                .stream()
-                .map(ScheduleResponseDto::toDto)
-                .toList();
+    public Page<ScheduleResponseDto> findAll(Pageable pageable){
+        return scheduleRepository.findAll(pageable)
+                .map(ScheduleResponseDto::toDto);
     }
 
     public ScheduleResponseDto findById(Long id){
