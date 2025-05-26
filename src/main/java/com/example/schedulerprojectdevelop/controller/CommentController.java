@@ -2,6 +2,7 @@ package com.example.schedulerprojectdevelop.controller;
 
 import com.example.schedulerprojectdevelop.dto.CommentResponseDto;
 import com.example.schedulerprojectdevelop.dto.CreateCommentRequestDto;
+import com.example.schedulerprojectdevelop.dto.UpdateCommentRequestDto;
 import com.example.schedulerprojectdevelop.entity.Comment;
 import com.example.schedulerprojectdevelop.service.CommentService;
 import jakarta.validation.Valid;
@@ -48,6 +49,26 @@ public class CommentController {
                 commentService.findById(id);
 
         return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("comments/{id}")
+    public ResponseEntity<CommentResponseDto> updateById(
+            @PathVariable Long id,
+            @RequestBody UpdateCommentRequestDto requestDto
+            ){
+
+        CommentResponseDto commentResponseDto =
+                commentService.update(id, requestDto.getContents());
+
+        return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("comments/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+
+        commentService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -45,4 +45,16 @@ public class CommentService {
 
         return new CommentResponseDto(findComment.getContents(), findComment.getId(), findComment.getSchedule().getId());
     }
+
+    public CommentResponseDto update(Long id, String contents){
+        Comment findComment = commentRepository.findByIdOrElseThrow(id);
+
+        findComment.setContents(contents);
+
+        commentRepository.save(findComment);
+
+        return new CommentResponseDto(findComment.getContents(), findComment.getId(), findComment.getSchedule().getId());
+    }
+
+    public void delete(Long id) { commentRepository.delete(commentRepository.findByIdOrElseThrow(id));}
 }
