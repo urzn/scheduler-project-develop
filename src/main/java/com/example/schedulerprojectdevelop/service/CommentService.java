@@ -21,6 +21,14 @@ public class CommentService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
+    /**
+     * 일정 아이디를 받아
+     * 일정에 댓글을 작성하는 메소드
+     * @param scheduleId
+     * @param contents
+     * @param username
+     * @return
+     */
     public CommentResponseDto save(Long scheduleId, String contents, String username){
 
         Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
@@ -32,6 +40,11 @@ public class CommentService {
         return new CommentResponseDto(comment.getContents(), comment.getId(), comment.getSchedule().getId());
     }
 
+    /**
+     * 일정 id로 일정에 달린 댓글을 모두 조회하는 메소드
+     * @param scheduleId
+     * @return
+     */
     public List<CommentResponseDto> findAllByScheduleId(Long scheduleId){
 
         return commentRepository.findAllByScheduleId(scheduleId)
@@ -40,12 +53,23 @@ public class CommentService {
                 .toList();
     }
 
+    /**
+     * 댓글 id로 댓글을 조회하는 메소드
+     * @param id
+     * @return
+     */
     public CommentResponseDto findById(Long id){
         Comment findComment = commentRepository.findByIdOrElseThrow(id);
 
         return new CommentResponseDto(findComment.getContents(), findComment.getId(), findComment.getSchedule().getId());
     }
 
+    /**
+     * 댓글 id를 받아 댓글을 수정하는 메소드
+     * @param id
+     * @param contents
+     * @return
+     */
     public CommentResponseDto update(Long id, String contents){
         Comment findComment = commentRepository.findByIdOrElseThrow(id);
 
@@ -56,5 +80,9 @@ public class CommentService {
         return new CommentResponseDto(findComment.getContents(), findComment.getId(), findComment.getSchedule().getId());
     }
 
+    /**
+     * 댓글 id를 받아 댓글을 삭제하는 메소드
+     * @param id
+     */
     public void delete(Long id) { commentRepository.delete(commentRepository.findByIdOrElseThrow(id));}
 }
