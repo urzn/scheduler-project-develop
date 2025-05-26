@@ -1,9 +1,6 @@
 package com.example.schedulerprojectdevelop.controller;
 
-import com.example.schedulerprojectdevelop.dto.UpdatePasswordRequestDto;
-import com.example.schedulerprojectdevelop.dto.UserResponseDto;
-import com.example.schedulerprojectdevelop.dto.SignUpRequestDto;
-import com.example.schedulerprojectdevelop.dto.SignUpResponseDto;
+import com.example.schedulerprojectdevelop.dto.*;
 import com.example.schedulerprojectdevelop.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -50,22 +47,22 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updatePassword(
+    public ResponseEntity<MessageResponseDto> updatePassword(
             @Valid
             @PathVariable Long id,
             @RequestBody UpdatePasswordRequestDto requestDto
             ){
 
         userService.updatePassword(id, requestDto.getOldPassword(), requestDto.getNewPassword());
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        MessageResponseDto messageResponseDto = new MessageResponseDto("패스워드가 변경되었습니다.");
+        return new ResponseEntity<>(messageResponseDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+    public ResponseEntity<MessageResponseDto> deleteById(@PathVariable Long id){
 
         userService.deleteUser(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        MessageResponseDto messageResponseDto = new MessageResponseDto("유저가 삭제되었습니다.");
+        return new ResponseEntity<>(messageResponseDto, HttpStatus.OK);
     }
 }

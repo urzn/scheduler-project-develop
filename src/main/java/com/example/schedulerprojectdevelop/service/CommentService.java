@@ -9,6 +9,8 @@ import com.example.schedulerprojectdevelop.repository.ScheduleRepository;
 import com.example.schedulerprojectdevelop.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,6 +66,15 @@ public class CommentService {
         return new CommentResponseDto(findComment.getContents(), findComment.getId(), findComment.getSchedule().getId());
     }
 
+    /**
+     * 모든 댓글을 조회하는 메소드
+     * @param pageable
+     * @return
+     */
+    public Page<CommentResponseDto> findAll(Pageable pageable){
+        return commentRepository.findAll(pageable)
+                .map(CommentResponseDto::toDto);
+    }
     /**
      * 댓글 id를 받아 댓글을 수정하는 메소드
      * @param id

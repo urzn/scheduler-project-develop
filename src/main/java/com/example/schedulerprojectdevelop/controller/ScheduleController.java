@@ -1,6 +1,7 @@
 package com.example.schedulerprojectdevelop.controller;
 
 import com.example.schedulerprojectdevelop.dto.CreateScheduleRequestDto;
+import com.example.schedulerprojectdevelop.dto.MessageResponseDto;
 import com.example.schedulerprojectdevelop.dto.ScheduleResponseDto;
 import com.example.schedulerprojectdevelop.dto.UpdateScheduleRequestDto;
 import com.example.schedulerprojectdevelop.repository.ScheduleRepository;
@@ -69,11 +70,11 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+    public ResponseEntity<MessageResponseDto> deleteById(@PathVariable Long id){
 
         scheduleService.delete(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        MessageResponseDto messageResponseDto = new MessageResponseDto("일정이 삭제되었습니다.");
+        return new ResponseEntity<>(messageResponseDto, HttpStatus.OK);
     }
 
 }
