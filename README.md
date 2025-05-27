@@ -29,5 +29,5 @@
 |  user | schedule | comment |
 | ----- | -------- | ------- |
 | username : 1~4글자 | username 1~4글자 | - |
-| password : 8글자 이상 | title : ~10글자 | - |
+| password : 4~20글자 | title : ~10글자 | - |
 | email : 이메일 형식 | contents : ~200글자 | contents : ~200글자 |
